@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('hello');
+
+    // Interpolated
+    console.log('hello I am a string', 'ccc');
+    console.log(`hello I m ${dogs}`);//cu ES6
+
+    // Styled
+    console.log('%c I am some great text', 'font-size: 25px; background: red');//%c inainte de textul pe care dorim sa-l stilizam si aplicam stilizarea in cel de-al doilea argument
+
+    // warning!
+    console.warn('OH NOO');//apare un triunghi portocaliu si un background galben
+
+    // Error :|
+    console.warn('error');//apare un cerc rosu cu un x iar text este rosu 
+    // Info
+    console.info('informations');//apare un cerc albastru cu litera i
+    // Testing
+    console.assert(1 === 1, 'That is true');// nu va afsa nimic pt ca este corect
+    console.assert(1 === 2, 'That is wrong');// va aprea o eroare pt ca este fals
+
+    // exemplu de testare, pt a nu avea if statement
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'That is not true!')
+
+    // clearing
+    // console.clear();
+
+
+    // Viewing DOM Elements
+    console.log(p);// ne da elementul
+    console.dir(p);// ne da toate proprietatile pt element
+
+    // Grouping together
+    dogs.forEach(dog => {
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+    })
+
+    //alternativa cu group
+    dogs.forEach(dog => {
+      console.group(`This is ${dog.name}`);// console.groupCollapsed vor fi comprimate de la inceput
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`This is ${dog.name}`);
+    });
+
+    // counting
+    //numara de cate ori apare 
+    console.count('now');
+    console.count('now');
+    console.count('now');
+    console.count('now');
+
+    // timing
+    //cat timp dureaza un proces
+    console.time('fetching data');
+    fetch('http://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');// sa fie acelasi string ca la inceput, va afisa cate ms dureaza requestul
+        console.log(data);
+      })
+
+    //afisare sub forma de tabel
+    console.table(dogs);
+
+  </script>
+</body>
+
+</html>
